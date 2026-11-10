@@ -1,0 +1,33 @@
+
+name: Java Calculator CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v5
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v5
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Compile application
+        run: mvn compile
+
+      - name: Run unit tests
+        run: mvn test
+
+      - name: Package application
+        run: mvn package
+
